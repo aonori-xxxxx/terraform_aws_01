@@ -142,12 +142,7 @@ resource "aws_rds_cluster_instance" "aurora_instance" {
 
 
 
-#DBパスワードを作成
-#これ用のterraform initが必要。要注意
-# resource "random_string" "rds_password" {
-#   length  = 16
-#   special = false
-# }
+
 
 # resource "aws_db_instance" "mysql" {
 #   instance_class         = "db.t3.medium"
