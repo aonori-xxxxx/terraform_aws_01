@@ -110,28 +110,28 @@ resource "random_string" "rds_password" {
 #-----------------
 
 # Aurora クラスターの作成
-resource "aws_rds_cluster" "aurora_cluster" {
-  cluster_identifier          = "${var.project}-aurora"
-  engine                      = "aurora-mysql"
-  engine_version              = "8.0.mysql_aurora.3.05.2"
-  master_username             = "admin"
-  master_password             = random_string.rds_password.result
-  backup_retention_period     = 5
-  preferred_backup_window     = "07:00-09:00"
-  allow_major_version_upgrade = false
-  db_subnet_group_name        = aws_db_subnet_group.mysql_standalone_subnetgroup.name
-  vpc_security_group_ids      = [aws_security_group.db_sg.id]
+# resource "aws_rds_cluster" "aurora_cluster" {
+#   cluster_identifier          = "${var.project}-aurora"
+#   engine                      = "aurora-mysql"
+#   engine_version              = "8.0.mysql_aurora.3.05.2"
+#   master_username             = "admin"
+#   master_password             = random_string.rds_password.result
+#   backup_retention_period     = 5
+#   preferred_backup_window     = "07:00-09:00"
+#   allow_major_version_upgrade = false
+#   db_subnet_group_name        = aws_db_subnet_group.mysql_standalone_subnetgroup.name
+#   vpc_security_group_ids      = [aws_security_group.db_sg.id]
 
-  #削除可能
-  deletion_protection = false
-  skip_final_snapshot = true
-  apply_immediately   = true
+#   #削除可能
+#   deletion_protection = false
+#   skip_final_snapshot = true
+#   apply_immediately   = true
 
   #削除不可
   # deletion_protection =  true
   # skip_final_snapshot = false
   # apply_immediately   = false
-}
+# }
 
 # Aurora インスタンスの作成
 # resource "aws_rds_cluster_instance" "aurora_instance" {
