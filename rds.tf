@@ -106,6 +106,9 @@ resource "random_string" "rds_password" {
   special = false
 }
 
+# Auroraの作成
+#-----------------
+
 # Aurora クラスターの作成
 resource "aws_rds_cluster" "aurora_cluster" {
   cluster_identifier          = "${var.project}-aurora"
@@ -143,6 +146,9 @@ resource "aws_rds_cluster_instance" "aurora_instance" {
 
 
 
+
+#RDSの作成
+#-----------------
 
 # resource "aws_db_instance" "mysql" {
 #   instance_class         = "db.t3.medium"
