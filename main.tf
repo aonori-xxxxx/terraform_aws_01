@@ -13,7 +13,7 @@ terraform {
     bucket  = "terraform-dev-202409"
     key     = "opro-dev.tfstate"
     region  = "ap-northeast-1"
-    profile = "terraform"
+    # profile = "terraform"
   }
 }
 
