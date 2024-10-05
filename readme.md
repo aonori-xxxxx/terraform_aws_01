@@ -5,7 +5,9 @@
 - EC2、RDSの設定は含まれていない。
 - session managerを使用してEC2へのSSH接続ができることをゴールとしている。
 ## 構成
-![構成](https://github.com/user-attachments/assets/a839ea1a-9050-4631-8a25-d8255ffcddb7)
+![構成](https://github.com/user-attachments/assets/969f905c-bcec-45b9-aae0-6646fe6cf812)
+
+
 ## IPアドレス
 | No.|用途|サブネット|種別|az|備考|
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
