@@ -134,14 +134,14 @@ resource "aws_rds_cluster" "aurora_cluster" {
 }
 
 # Aurora インスタンスの作成
-resource "aws_rds_cluster_instance" "aurora_instance" {
-  identifier           = "aurora-instance-demo"
-  cluster_identifier   = aws_rds_cluster.aurora_cluster.id
-  instance_class       = "db.t3.medium"
-  engine               = "aurora-mysql"
-  publicly_accessible  = false
-  db_subnet_group_name = aws_db_subnet_group.mysql_standalone_subnetgroup.name
-}
+# resource "aws_rds_cluster_instance" "aurora_instance" {
+#   identifier           = "aurora-instance-demo"
+#   cluster_identifier   = aws_rds_cluster.aurora_cluster.id
+#   instance_class       = "db.t3.medium"
+#   engine               = "aurora-mysql"
+#   publicly_accessible  = false
+#   db_subnet_group_name = aws_db_subnet_group.mysql_standalone_subnetgroup.name
+# }
 
 
 
