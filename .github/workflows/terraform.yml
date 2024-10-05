@@ -3,7 +3,7 @@ name: Terraform Plan and Apply
 on:
   push:
     branches:
-      - develop  # 特定のブランチを指定
+      - develop # 特定のブランチを指定
 
 jobs:
   terraform:
@@ -33,6 +33,5 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/develop'  # 特定のブランチでのみ適用
+        if: github.ref == 'refs/heads/develop' # 特定のブランチでのみ適用
         run: terraform apply -auto-approve
-
