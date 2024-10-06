@@ -7,7 +7,8 @@
 - session managerを使用してEC2へのSSH接続ができることをゴールとしている。
 
 ## GitHub Actions
-- AWS credentialsはsecretsを使用して機密情報を隠蔽している。
+- AWS credentialsは**secrets**を使用して機密情報を隠蔽している。
+- developブランチにpushをするとterraformが実行されAWS上に各リソースが展開される。
 ## 構成
 ![構成](https://github.com/user-attachments/assets/969f905c-bcec-45b9-aae0-6646fe6cf812)
 ## IPアドレス
