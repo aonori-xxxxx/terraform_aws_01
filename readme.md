@@ -5,6 +5,9 @@
 - EC2、RDSの設定は含まれていない。
 - 実行環境はGitHub Actionsを使用しており、**develop**ブランチにpushをすると実行される。
 - session managerを使用してEC2へのSSH接続ができることをゴールとしている。
+
+## GitHub Actions
+- AWS credentialsはsecretsを使用して機密情報を隠蔽している。
 ## 構成
 ![構成](https://github.com/user-attachments/assets/969f905c-bcec-45b9-aae0-6646fe6cf812)
 ## IPアドレス
