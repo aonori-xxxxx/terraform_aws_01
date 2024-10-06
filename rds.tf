@@ -127,10 +127,10 @@ resource "random_string" "rds_password" {
 #   skip_final_snapshot = true
 #   apply_immediately   = true
 
-  #削除不可
-  # deletion_protection =  true
-  # skip_final_snapshot = false
-  # apply_immediately   = false
+#削除不可
+# deletion_protection =  true
+# skip_final_snapshot = false
+# apply_immediately   = false
 # }
 
 # Aurora インスタンスの作成
