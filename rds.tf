@@ -3,66 +3,39 @@
 # - - - - - - - - - - - - - -
 
 
-resource "aws_db_parameter_group" "mysql_standalone_parametergroup" {
-  name   = "${var.project}-parametergroup"
+resource "aws_db_parameter_group" "aurora_instance_parametergroup" {
+  name   = "${var.project}-instance-parametergroup"
   family = "aurora-mysql8.0"
-
-  parameter {
-    name  = "aurora_parallel_query"
-    value = "0"
-  }
 
   parameter {
     name  = "general_log"
     value = "1"
   }
 
-  parameter {
-    name  = "interactive_timeout"
-    value = "86400"
-  }
-
-  parameter {
-    name  = "log_bin_trust_function_creators"
-    value = "1"
-  }
-
-  parameter {
-    name  = "max_allowed_packet"
-    value = "33554432"
-  }
-
-  parameter {
-    name  = "transaction_isolation"
-    value = "READ-COMMITTED"
-
-  }
-
-  parameter {
-    name  = "wait_timeout"
-    value = "86400"
-
-  }
 
 }
 
+
+resource "aws_rds_cluster_parameter_group" "aurora_cluster_instance_parametergroup" {
+  name        = "${var.project}-cluster-parametergroup"
+  family      = "aurora-mysql8.0"
+  
+
+  parameter {
+    name  = "character_set_server"
+    value = "utf8"
+  }
+
+  parameter {
+    name  = "character_set_client"
+    value = "utf8"
+  }
+
+}
 # - - - - - - - - - - - - - -
 #RDS オプショングループ
 # - - - - - - - - - - - - - -
 
-resource "aws_db_option_group" "mysql_optiongroup" {
-  name                 = "${var.project}-optiongroup"
-  engine_name          = "aurora"
-  major_engine_version = "8.0"
-  option {
-    option_name = "Timezone"
-
-    option_settings {
-      name  = "TIME_ZONE"
-      value = "JST"
-    }
-  }
-}
 
 resource "aws_db_option_group" "mysql_optiongroup" {
   name                 = "${var.project}-optiongroup"
@@ -107,18 +80,18 @@ resource "random_string" "rds_password" {
 
 # Aurora クラスターの作成
 resource "aws_rds_cluster" "aurora_cluster" {
-  cluster_identifier          = "${var.project}-aurora"
-  engine                      = "aurora-mysql"
-  engine_version              = "8.0.mysql_aurora.3.05.2"
-  master_username             = "admin"
-  master_password             = random_string.rds_password.result
-  backup_retention_period     = 5
-  preferred_backup_window     = "07:00-09:00"
-  allow_major_version_upgrade = false
-  db_subnet_group_name        = aws_db_subnet_group.mysql_standalone_subnetgroup.name
-  vpc_security_group_ids      = [aws_security_group.db_sg.id]
-
-  #   #削除可能
+  cluster_identifier              = "${var.project}-aurora-cluster"
+  engine                          = "aurora-mysql"
+  engine_version                  = "8.0.mysql_aurora.3.05.2"
+  master_username                 = "admin"
+  master_password                 = random_string.rds_password.result
+  backup_retention_period         = 5
+  preferred_backup_window         = "07:00-09:00"
+  allow_major_version_upgrade     = false
+  db_subnet_group_name            = aws_db_subnet_group.mysql_standalone_subnetgroup.name
+  vpc_security_group_ids          = [aws_security_group.db_sg.id]
+  db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.aurora_cluster_instance_parametergroup.name
+  #削除可能
   deletion_protection = false
   skip_final_snapshot = true
   apply_immediately   = true
@@ -132,12 +105,15 @@ resource "aws_rds_cluster" "aurora_cluster" {
 
 # Aurora インスタンスの作成
 resource "aws_rds_cluster_instance" "aurora_instance" {
-  identifier           = "aurora-instance-demo"
-  cluster_identifier   = aws_rds_cluster.aurora_cluster.id
-  instance_class       = "db.t3.medium"
-  engine               = "aurora-mysql"
-  publicly_accessible  = false
-  db_subnet_group_name = aws_db_subnet_group.mysql_standalone_subnetgroup.name
+  identifier              = "${var.project}-aurora"
+  cluster_identifier      = aws_rds_cluster.aurora_cluster.id
+  instance_class          = "db.t3.medium"
+  engine                  = "aurora-mysql"
+  publicly_accessible     = false
+  db_subnet_group_name    = aws_db_subnet_group.mysql_standalone_subnetgroup.name
+  db_parameter_group_name = aws_db_parameter_group.aurora_instance_parametergroup.name
+
+
 }
 
 
