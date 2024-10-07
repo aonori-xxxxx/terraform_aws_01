@@ -18,7 +18,7 @@ terraform {
 }
 
 # - - - - - - - - - - - - - -
-#provider
+#Provider
 # - - - - - - - - - - - - - -
 provider "aws" {
   profile = "terraform"
@@ -26,7 +26,7 @@ provider "aws" {
 }
 
 # - - - - - - - - - - - - - -
-#variables
+#Variables
 # - - - - - - - - - - - - - -
 
 variable "project" {
@@ -36,7 +36,7 @@ variable "project" {
 variable "environment" {
   type = string
 }
-#region
+#Region
 variable "region" {
   type = string
 }
@@ -46,7 +46,7 @@ variable "vpc_cidr" {
   type = string
 }
 
-#subnet
+#Subnet
 variable "public_1a" {
   type = string
 }
