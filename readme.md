@@ -5,6 +5,7 @@
 - EC2、RDSの設定は含まれていない。
 - 実行環境はGitHub Actionsを使用しており、**develop**ブランチにpushをすると実行される。
 - 「Session Managerを使用してEC2へのSSH接続ができること」「ELBのDNSでアクセスした際に80番ポートで応答がある。」この二つをゴールとしている。
+- RDSは削除可能な状態にしてある。
 
 ## GitHub Actions
 - AWS credentialsは**secrets**を使用して機密情報を隠蔽している。
