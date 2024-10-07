@@ -11,7 +11,7 @@ terraform {
   }
   backend "s3" {
     bucket  = "terraform-dev-202409"
-    key     = "opro-dev.tfstate"
+    key     = "dev.tfstate"
     region  = "ap-northeast-1"
     profile = "terraform"
   }
