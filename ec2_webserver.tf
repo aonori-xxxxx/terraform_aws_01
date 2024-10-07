@@ -10,47 +10,12 @@ resource "aws_key_pair" "keypair" {
     Env     = var.environment
   }
 }
-# - - - - - - - - - - - - - -
-# SSM Parameter Store
-# - - - - - - - - - - - - - -
 
-# resource "aws_ssm_parameter" "host" {
-#   name  = "/${var.project}/${var.environment}/app/MYSQL_HOST"
-#   type  = "String"
-#   value = aws_db_instance.mysql_standalone.address
-
-# }
-
-# resource "aws_ssm_parameter" "port" {
-#   name  = "/${var.project}/${var.environment}/app/MYSQL_PORT"
-#   type  = "String"
-#   value = aws_db_instance.mysql_standalone.port
-
-# }
-
-# resource "aws_ssm_parameter" "database" {
-#   name  = "/${var.project}/${var.environment}/app/MYSQL_DATABASE"
-#   type  = "String"
-#   value = aws_db_instance.mysql_standalone.name
-# }
-
-# resource "aws_ssm_parameter" "user" {
-#   name  = "/${var.project}/${var.environment}/app/MYSQL_USERNAME"
-#   type  = "SecureString"
-#   value = aws_db_instance.mysql_standalone.username
-# }
-
-# resource "aws_ssm_parameter" "password" {
-#   name  = "/${var.project}/${var.environment}/app/MYSQL_PASSWORD"
-#   type  = "SecureString"
-#   value = aws_db_instance.mysql_standalone.password
-
-# }
 # - - - - - - - - - - - - - -
 # EC2 Instance
 # - - - - - - - - - - - - - -
 resource "aws_instance" "web_server2" {
-  ami                         = "ami-0bb890eb2677ad3dd"
+  ami                         = data.aws_ami.web.id
   instance_type               = "t3.micro"
   subnet_id                   = aws_subnet.private_sv_1a.id
   associate_public_ip_address = false
@@ -69,9 +34,10 @@ resource "aws_instance" "web_server2" {
 
   user_data = <<-EOF
   #!/bin/bash
-  yum install -y amazon-ssm-agent
-  systemctl start amazon-ssm-agent
-  echo  "test" > /home/ec2-user/taaa.txt
+  dnf install -y httpd
+  systemctl start httpd
+  echo OK > /var/www/html/index.html
+  chmod 664 /var/www/html/index.html
   EOF
 
 }

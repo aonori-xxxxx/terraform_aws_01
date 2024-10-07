@@ -4,7 +4,7 @@
 - 本構成はTerraformを使用してAWSの各リソースを作成するものである。
 - EC2、RDSの設定は含まれていない。
 - 実行環境はGitHub Actionsを使用しており、**develop**ブランチにpushをすると実行される。
-- session managerを使用してEC2へのSSH接続ができることをゴールとしている。
+- 「Session Managerを使用してEC2へのSSH接続ができること」「ELBのDNSでアクセスした際に80番ポートで応答がある。」この二つをゴールとしている。
 
 ## GitHub Actions
 - AWS credentialsは**secrets**を使用して機密情報を隠蔽している。
