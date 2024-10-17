@@ -1,5 +1,5 @@
 # - - - - - - - - - - - - - -
-# ALB
+# ELB ※Application Load Balancer
 # - - - - - - - - - - - - - -
 
 resource "aws_lb" "alb" {
@@ -23,12 +23,11 @@ resource "aws_lb_listener" "alb_listener_http" {
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.alb_target_group.arn
-
   }
 }
 
 # - - - - - - - - - - - - - -
-# target group
+# Target Group
 # - - - - - - - - - - - - - -
 
 resource "aws_lb_target_group" "alb_target_group" {
@@ -46,7 +45,6 @@ resource "aws_lb_target_group" "alb_target_group" {
 resource "aws_lb_target_group_attachment" "instance" {
   target_group_arn = aws_lb_target_group.alb_target_group.id
   target_id        = aws_instance.web_server2.id
-
 }
 
 
